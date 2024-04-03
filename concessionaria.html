@@ -333,8 +333,7 @@
                     $("#valorTotal").val(""); // Se nenhum carro for selecionado, limpa o campo de valor total
                 }
             }); 
-
-        // Evento de clique para registrar venda
+// Evento de clique para registrar venda
 $("#formVenda").submit(function (event) {
     event.preventDefault();
     var clienteIndex = $("#clienteSelect").val();
@@ -347,7 +346,7 @@ $("#formVenda").submit(function (event) {
 
     if (financiamento > 0) {
         var numParcelas = financiamento;
-        var taxaFinanciamento = 0.1; // Exemplo de taxa de financiamento de 10%
+        var taxaFinanciamento = 0.1 + (0.01 * numParcelas); // Aumenta a taxa de financiamento com base no número de parcelas
         var valorParcela = (precoCarro + extras) / numParcelas; // Valor da parcela
         var valorTotalFinanciado = (precoCarro + extras) * (1 + taxaFinanciamento); // Valor total financiado com a taxa de financiamento
         valorTotal = valorTotalFinanciado.toFixed(2); // Valor total considerando a taxa de financiamento
@@ -367,6 +366,7 @@ $("#formVenda").submit(function (event) {
     $("#historicoVendas").append("<tr><td>" + venda.data + "</td><td>" + venda.cliente + "</td><td>" + venda.carro + "</td><td>" + venda.valorTotal + "</td></tr>");
     $("#formVenda")[0].reset();
 });
+
 
 
             // Preencher selects de cliente e carro
