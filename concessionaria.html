@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Concessionaria</title>
+    <!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .btn-editar, .btn-excluir {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Sistema de Vendas</h1>
+        <hr>
+
+        <!-- Gestao de Clientes -->
+        <h2 class="mt-4">Gestao de Clientes</h2>
+        <form id="formCliente">
+            <div class="form-group">
+                <label for="nomeCliente">Nome:</label>
+                <input type="text" class="form-control" id="nomeCliente" required>
+            </div>
+            <div class="form-group">
+                <label for="enderecoCliente">Endereco:</label>
+                <input type="text" class="form-control" id="enderecoCliente" required>
+            </div>
+            <div class="form-group">
+                <label for="telefoneCliente">Telefone:</label>
+                <input type="tel" class="form-control" id="telefoneCliente" required>
+            </div>
+            <div class="form-group">
+                <label for="emailCliente">E-mail:</label>
+                <input type="email" class="form-control" id="emailCliente" required>
+            </div>
+            <input type="hidden" id="clienteIdEditar" value="">
+            <button type="submit" class="btn btn-primary">Cadastrar Cliente</button>
+        </form>
+
+        <!-- Tabela para exibir lista de clientes -->
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Endereço</th>
+                    <th>Telefone</th>
+                    <th>E-mail</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="listaClientes">
+                <!-- Os clientes serão inseridos aqui dinamicamente via JavaScript -->
+            </tbody>
+        </table>
+
+        <!-- Gestao de Carros -->
+        <h2 class="mt-5">Gestao de Carros</h2>
+        <form id="formCarro">
+            <div class="form-group">
+                <label for="marcaCarro">Marca:</label>
+                <input type="text" class="form-control" id="marcaCarro" required>
+            </div>
+            <div class="form-group">
+                <label for="modeloCarro">Modelo:</label>
+                <input type="text" class="form-control" id="modeloCarro" required>
+            </div>
+            <div class="form-group">
+                <label for="anoCarro">Ano:</label>
+                <input type="text" class="form-control" id="anoCarro" required>
+            </div>
+            <div class="form-group">
+                <label for="tipoCarro">Tipo:</label>
+                <select class="form-control" id="tipoCarro" required>
+                    <option value="Hatchback">Hatchback</option>
+                    <option value="Sedan">Sedan</option>
+                    <option value="SUV">SUV</option>
+                    <option value="Crossover">Crossover</option>
+                    <option value="Picape">Picape</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="precoCarro">Preco:</label>
+                <input type="text" class="form-control" id="precoCarro" required>
+            </div>
+            <input type="hidden" id="carroIdEditar" value="">
+            <button type="submit" class="btn btn-primary">Cadastrar Carro</button>
+        </form>
+
+        <!-- Tabela para exibir lista de carros -->
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Ano</th>
+                    <th>Tipo</th>
+                    <th>Preco</th>
+                    <th>Acoes</th>
+                </tr>
+            </thead>
+            <tbody id="listaCarros">
+                <!-- Os carros serão inseridos aqui dinamicamente via JavaScript -->
+            </tbody>
+        </table>
+
+     <h2 class="mt-5">Registro de Vendas</h2>
+        <!-- Formulário para registrar vendas -->
+        <form id="formVenda">
+            <div class="form-group">
+                <label for="clienteSelect">Cliente:</label>
+                <select class="form-control" id="clienteSelect" required>
+                    <!-- Opções de clientes serão inseridas aqui dinamicamente via JavaScript -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="carroSelect">Carro:</label>
+                <select class="form-control" id="carroSelect" required>
+                    <!-- Opções de carros serão inseridas aqui dinamicamente via JavaScript -->
+                </select>
+            </div>
+                
+            <div class="form-group">
+                <label for="extras">Extras:</label>
+                <input type="number" class="form-control" id="extras" value="0">
+            </div>
+            <div class="form-group">
+                <label for="financiamento">Financiamento:</label>
+                <select class="form-control" id="financiamento">
+                    <option value="0">À vista</option>
+                    <option value="1">1x</option>
+                    <option value="2">2x</option>
+                    <option value="3">3x</option>
+                    <option value="6">6x</option>
+                    <option value="12">12x</option>
+                </select>
+            </div>
+<div class="form-group mt-3">
+                <label for="valorTotal">Valor Total:</label>
+                <input type="text" class="form-control" id="valorTotal" readonly>
+            </div>
+            <button type="submit" class="btn btn-primary">Registrar Venda</button>
+            
+        </form>
+
+        <!-- Tabela para exibir histórico de vendas -->
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Cliente</th>
+                    <th>Carro</th>
+                    <th>Valor Total</th>
+                </tr>
+            </thead>
+            <tbody id="historicoVendas">
+                <!-- As vendas serão inseridas aqui dinamicamente via JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+
+    
+
+
+    <script>
+        $(document).ready(function () {
+            // Carregar clientes e carros salvos no localStorage
+            var clientes = JSON.parse(localStorage.getItem('clientes')) || [];
+            var carros = JSON.parse(localStorage.getItem('carros')) || [];
+            var vendas = JSON.parse(localStorage.getItem('vendas')) || [];
+
+            $(document).ready(function () {
+            // Aplicar a máscara ao campo de telefone
+            $("#telefoneCliente").inputmask({"mask": "(99) 9999-9999"});
+            });
+
+
+            // Função para adicionar cliente à lista
+            $("#formCliente").submit(function (event) {
+                event.preventDefault();
+
+                // Obter os valores dos campos
+                var nome = $("#nomeCliente").val();
+                var endereco = $("#enderecoCliente").val();
+                var telefone = $("#telefoneCliente").val();
+                var email = $("#emailCliente").val();
+
+                // Verificar se é uma edição ou criação de cliente
+                var clienteIdEditar = $("#clienteIdEditar").val();
+                if (clienteIdEditar !== "") {
+                    // Edição de cliente
+                    clientes[clienteIdEditar] = { nome: nome, endereco: endereco, telefone: telefone, email: email };
+                    $("#clienteIdEditar").val(""); // Limpar o campo de identificação de edição
+                } else {
+                    // Criação de novo cliente
+                    clientes.push({ nome: nome, endereco: endereco, telefone: telefone, email: email });
+                }
+
+                // Atualizar tabela de clientes
+                atualizarTabelaClientes();
+
+                // Limpar os campos do formulário
+                $("#nomeCliente, #enderecoCliente, #telefoneCliente, #emailCliente").val("");
+
+                // Atualizar localStorage
+                localStorage.setItem('clientes', JSON.stringify(clientes));
+            });
+
+            // Função para adicionar carro à lista
+            $("#formCarro").submit(function (event) {
+                event.preventDefault();
+
+                // Obter os valores dos campos
+                var marca = $("#marcaCarro").val();
+                var modelo = $("#modeloCarro").val();
+                var ano = $("#anoCarro").val();
+                var tipo = $("#tipoCarro").val();
+                var preco = $("#precoCarro").val();
+
+                // Verificar se é uma edição ou criação de carro
+                var carroIdEditar = $("#carroIdEditar").val();
+                if (carroIdEditar !== "") {
+                    // Edição de carro
+                    carros[carroIdEditar] = { marca: marca, modelo: modelo, ano: ano, tipo: tipo, preco: preco };
+                    $("#carroIdEditar").val(""); // Limpar o campo de identificação de edição
+                } else {
+                    // Criação de novo carro
+                    carros.push({ marca: marca, modelo: modelo, ano: ano, tipo: tipo, preco: preco });
+                }
+
+                // Atualizar tabela de carros
+                atualizarTabelaCarros();
+
+                // Limpar os campos do formulário
+                $("#marcaCarro, #modeloCarro, #anoCarro, #tipoCarro, #precoCarro").val("");
+
+                // Atualizar localStorage
+                localStorage.setItem('carros', JSON.stringify(carros));
+            });
+
+            // Função para atualizar a tabela de clientes
+            function atualizarTabelaClientes() {
+                $("#listaClientes").empty();
+                clientes.forEach(function (cliente, index) {
+                    var row = $("<tr>");
+                    row.append("<td>" + cliente.nome + "</td>");
+                    row.append("<td>" + cliente.endereco + "</td>");
+                    row.append("<td>" + cliente.telefone + "</td>");
+                    row.append("<td>" + cliente.email + "</td>");
+                    row.append('<td><button type="button" class="btn btn-primary btn-editar-cliente" data-index="' + index + '">Editar</button> <button type="button" class="btn btn-danger btn-excluir-cliente" data-index="' + index + '">Excluir</button></td>');
+                    $("#listaClientes").append(row);
+                });
+            }
+
+            // Função para atualizar a tabela de carros
+            function atualizarTabelaCarros() {
+                $("#listaCarros").empty();
+                carros.forEach(function (carro, index) {
+                    var row = $("<tr>");
+                    row.append("<td>" + carro.marca + "</td>");
+                    row.append("<td>" + carro.modelo + "</td>");
+                    row.append("<td>" + carro.ano + "</td>");
+                    row.append("<td>" + carro.tipo + "</td>");
+                    row.append("<td>" + carro.preco + "</td>");
+                    row.append('<td><button type="button" class="btn btn-primary btn-editar-carro" data-index="' + index + '">Editar</button> <button type="button" class="btn btn-danger btn-excluir-carro" data-index="' + index + '">Excluir</button></td>');
+                    $("#listaCarros").append(row);
+                });
+            }
+            // Função para atualizar a tabela de histórico de vendas
+            function atualizarHistoricoVendas() {
+               $("#historicoVendas").empty();
+               vendas.forEach(function (venda) {
+               $("#historicoVendas").append("<tr><td>" + venda.data + "</td><td>" + venda.cliente + "</td><td>" + venda.carro + "</td><td>" + venda.valorTotal + "</td></tr>");
+                });
+}
+
+
+
+            
+            // Evento de clique para editar cliente
+            $(document).on("click", ".btn-editar-cliente", function () {
+                var index = $(this).data("index");
+                var cliente = clientes[index];
+                $("#nomeCliente").val(cliente.nome);
+                $("#enderecoCliente").val(cliente.endereco);
+                $("#telefoneCliente").val(cliente.telefone);
+                $("#emailCliente").val(cliente.email);
+                $("#clienteIdEditar").val(index);
+            });
+
+            // Evento de clique para excluir cliente
+            $(document).on("click", ".btn-excluir-cliente", function () {
+                var index = $(this).data("index");
+                clientes.splice(index, 1);
+                atualizarTabelaClientes();
+                localStorage.setItem('clientes', JSON.stringify(clientes));
+            });
+
+            // Evento de clique para editar carro
+            $(document).on("click", ".btn-editar-carro", function () {
+                var index = $(this).data("index");
+                var carro = carros[index];
+                $("#marcaCarro").val(carro.marca);
+                $("#modeloCarro").val(carro.modelo);
+                $("#anoCarro").val(carro.ano);
+                $("#tipoCarro").val(carro.tipo);
+                $("#precoCarro").val(carro.preco);
+                $("#carroIdEditar").val(index);
+            });
+
+            // Evento de clique para excluir carro
+            $(document).on("click", ".btn-excluir-carro", function () {
+                var index = $(this).data("index");
+                carros.splice(index, 1);
+                atualizarTabelaCarros();
+                localStorage.setItem('carros', JSON.stringify(carros));
+            });
+  // Evento de alteração do seletor de carro
+            $("#carroSelect").change(function () {
+                var carroIndex = $(this).val();
+                if (carroIndex !== "") {
+                    var precoCarro = parseFloat(carros[carroIndex].preco);
+                    $("#valorTotal").val(precoCarro.toFixed(2)); // Define o valor total como o preço do carro selecionado
+                } else {
+                    $("#valorTotal").val(""); // Se nenhum carro for selecionado, limpa o campo de valor total
+                }
+            }); 
+
+        // Evento de clique para registrar venda
+$("#formVenda").submit(function (event) {
+    event.preventDefault();
+    var clienteIndex = $("#clienteSelect").val();
+    var carroIndex = $("#carroSelect").val();
+    var extras = parseInt($("#extras").val());
+    var financiamento = parseInt($("#financiamento").val());
+    var precoCarro = parseFloat(carros[carroIndex].preco);
+
+    var valorTotal;
+
+    if (financiamento > 0) {
+        var numParcelas = financiamento;
+        var taxaFinanciamento = 0.1; // Exemplo de taxa de financiamento de 10%
+        var valorParcela = (precoCarro + extras) / numParcelas; // Valor da parcela
+        var valorTotalFinanciado = (precoCarro + extras) * (1 + taxaFinanciamento); // Valor total financiado com a taxa de financiamento
+        valorTotal = valorTotalFinanciado.toFixed(2); // Valor total considerando a taxa de financiamento
+    } else {
+        valorTotal = (precoCarro + extras).toFixed(2); // Se for à vista, o valor total é o preço do carro mais os extras
+    }
+
+    var venda = {
+        data: new Date().toLocaleString(),
+        cliente: clientes[clienteIndex].nome,
+        carro: carros[carroIndex].modelo,
+        valorTotal: valorTotal
+    };
+
+    vendas.push(venda);
+    localStorage.setItem('vendas', JSON.stringify(vendas));
+    $("#historicoVendas").append("<tr><td>" + venda.data + "</td><td>" + venda.cliente + "</td><td>" + venda.carro + "</td><td>" + venda.valorTotal + "</td></tr>");
+    $("#formVenda")[0].reset();
+});
+
+
+            // Preencher selects de cliente e carro
+            clientes.forEach(function (cliente, index) {
+                $("#clienteSelect").append("<option value='" + index + "'>" + cliente.nome + "</option>");
+            });
+
+            carros.forEach(function (carro, index) {
+                $("#carroSelect").append("<option value='" + index + "'>" + carro.modelo + "</option>");
+            });
+
+            // Inicializar as tabelas
+            atualizarTabelaClientes();
+            atualizarTabelaCarros();
+            atualizarHistoricoVendas();
+        });
+    </script>
+    <!-- Logotipo -->
+    <img src="logo.png" alt="Logo" id="logo">
+</body>
+</html>

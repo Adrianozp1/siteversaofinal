@@ -1,0 +1,49 @@
+/* styles.css */
+
+/* Personalizações de estilo */
+
+/* Botões */
+.btn-primary {
+    background-color: #3498db; /* Azul suave */
+    border-color: #3498db; /* Azul suave */
+}
+
+.btn-primary:hover {
+    background-color: #2980b9; /* Azul mais escuro ao passar o mouse */
+    border-color: #2980b9; /* Azul mais escuro ao passar o mouse */
+}
+
+.btn-danger {
+    background-color: #e74c3c; /* Vermelho suave */
+    border-color: #e74c3c; /* Vermelho suave */
+}
+
+.btn-danger:hover {
+    background-color: #c0392b; /* Vermelho mais escuro ao passar o mouse */
+    border-color: #c0392b; /* Vermelho mais escuro ao passar o mouse */
+}
+
+/* Texto */
+body {
+    color: #333; /* Cor de texto padrão */
+}
+
+/* Fundo */
+body {
+    background-color: #a3a0a079; /* Cor de fundo suave */
+}
+
+/* Fundo das caixas de entrada */
+.form-control {
+    background-color: #f2f2f2b6; /* Cinza claro */
+}
+
+#logo {
+    position: fixed;
+    top: 10px; /* Movendo um pouco mais para cima */
+    right: 1%; /* Ajuste conforme necessário para a distância da direita */
+    width: 150px; /* Aumentando o tamanho */
+    height: auto; /* Altura automática para manter a proporção */
+    z-index: 1000; /* Certifica-se de que o logotipo está acima de outros elementos */
+    opacity: 0.8; /* Define a transparência */
+}
