@@ -18,8 +18,8 @@
         <h1 class="mt-5">Sistema de Vendas</h1>
         <hr>
 
-        <!-- Gestão de Clientes -->
-        <h2 class="mt-4">Gestão de Clientes</h2>
+        <!-- Gestao de Clientes -->
+        <h2 class="mt-4">Gestao de Clientes</h2>
         <form id="formCliente">
             <div class="form-group">
                 <label for="nomeCliente">Nome:</label>
@@ -57,8 +57,8 @@
             </tbody>
         </table>
 
-        <!-- Gestão de Carros -->
-        <h2 class="mt-5">Gestão de Carros</h2>
+        <!-- Gestao de Carros -->
+        <h2 class="mt-5">Gestao de Carros</h2>
         <form id="formCarro">
             <div class="form-group">
                 <label for="marcaCarro">Marca:</label>
@@ -83,7 +83,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="precoCarro">Preço:</label>
+                <label for="precoCarro">Preco:</label>
                 <input type="text" class="form-control" id="precoCarro" required>
             </div>
             <input type="hidden" id="carroIdEditar" value="">
@@ -98,7 +98,7 @@
                     <th>Modelo</th>
                     <th>Ano</th>
                     <th>Tipo</th>
-                    <th>Preço</th>
+                    <th>Preco</th>
                     <th>Acoes</th>
                 </tr>
             </thead>
@@ -333,6 +333,48 @@
                     $("#valorTotal").val(""); // Se nenhum carro for selecionado, limpa o campo de valor total
                 }
             }); 
+            // Evento de mudança do seletor de financiamento
+    $("#financiamento").change(function () {
+        var carroIndex = $("#carroSelect").val(); // Índice do carro selecionado
+        var extras = parseInt($("#extras").val()); // Extras adicionais
+        var financiamento = parseInt($(this).val()); // Opção de financiamento selecionada
+        var precoCarro = parseFloat(carros[carroIndex].preco); // Preço do carro selecionado
+
+        var valorTotal;
+
+        if (financiamento > 0) {
+            var numParcelas = financiamento; // Número de parcelas
+            var taxaFinanciamento = 0.1 + (0.01 * numParcelas); // Taxa de financiamento
+            var valorParcela = (precoCarro + extras) / numParcelas; // Valor da parcela
+            var valorTotalFinanciado = (precoCarro + extras) * (1 + taxaFinanciamento); // Valor total financiado
+            valorTotal = valorTotalFinanciado.toFixed(2); // Valor total com financiamento
+        } else {
+            valorTotal = (precoCarro + extras).toFixed(2); // Se for à vista, o valor total é o preço do carro mais os extras
+        }
+
+        $("#valorTotal").val(valorTotal); // Atualiza o campo de valor total
+    });
+     // Evento de entrada do campo de extras
+     $("#extras").on("input", function () {
+        var carroIndex = $("#carroSelect").val(); // Índice do carro selecionado
+        var extras = parseInt($(this).val()); // Extras adicionais
+        var financiamento = parseInt($("#financiamento").val()); // Opção de financiamento selecionada
+        var precoCarro = parseFloat(carros[carroIndex].preco); // Preço do carro selecionado
+
+        var valorTotal;
+
+        if (financiamento > 0) {
+            var numParcelas = financiamento; // Número de parcelas
+            var taxaFinanciamento = 0.1 + (0.01 * numParcelas); // Taxa de financiamento
+            var valorParcela = (precoCarro + extras) / numParcelas; // Valor da parcela
+            var valorTotalFinanciado = (precoCarro + extras) * (1 + taxaFinanciamento); // Valor total financiado
+            valorTotal = valorTotalFinanciado.toFixed(2); // Valor total com financiamento
+        } else {
+            valorTotal = (precoCarro + extras).toFixed(2); // Se for à vista, o valor total é o preço do carro mais os extras
+        }
+
+        $("#valorTotal").val(valorTotal); // Atualiza o campo de valor total
+    });
 // Evento de clique para registrar venda
 $("#formVenda").submit(function (event) {
     event.preventDefault();
